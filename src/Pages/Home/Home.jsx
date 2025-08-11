@@ -5,7 +5,7 @@ import TopEvents from '../../Components/TopEvents/TopEvents'
 
 function Home() {
   return (
-    <div>
+    <div >
         <HeroSection />
         <div className='mx-5 my-3 font-serif'>
             <h1 className='text-4xl mb-3'>Top Attractions</h1>

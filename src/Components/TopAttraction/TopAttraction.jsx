@@ -2,12 +2,43 @@ import React from 'react'
 
 function TopAttraction() {
   return (
-    <div>
-        <div className='w-[300px] shadow-lg shadow-black py-4 px-3 flex flex-col justify-center items-center'>
+    <div className='attraction-cards w-full flex justify-start items-center gap-4 overflow-x-auto px-4'>
+        <div className='w-[300px] shadow-lg shadow-gray-800 my-5 mx-2 py-4 px-3 flex flex-col shrink-0 justify-center items-center'>
             <img src="/hero-sec.png" alt="place image" className='w-[90%]'/>
             <h3>Place Name</h3>
             <p>Place short description</p>
         </div>
+        <div className='w-[300px] shadow-lg shadow-gray-800 my-5 mx-2 py-4 px-3 flex flex-col shrink-0 justify-center items-center'>
+            <img src="/hero-sec.png" alt="place image" className='w-[90%]'/>
+            <h3>Place Name</h3>
+            <p>Place short description</p>
+        </div>
+        <div className='w-[300px] shadow-lg shadow-gray-800 my-5 mx-2 py-4 px-3 flex flex-col shrink-0 justify-center items-center'>
+            <img src="/hero-sec.png" alt="place image" className='w-[90%]'/>
+            <h3>Place Name</h3>
+            <p>Place short description</p>
+        </div>
+        <div className='w-[300px] shadow-lg shadow-gray-800 my-5 mx-2 py-4 px-3 flex flex-col shrink-0 justify-center items-center'>
+            <img src="/hero-sec.png" alt="place image" className='w-[90%]'/>
+            <h3>Place Name</h3>
+            <p>Place short description</p>
+        </div>
+        <div className='w-[300px] shadow-lg shadow-gray-800 my-5 mx-2 py-4 px-3 flex flex-col shrink-0 justify-center items-center'>
+            <img src="/hero-sec.png" alt="place image" className='w-[90%]'/>
+            <h3>Place Name</h3>
+            <p>Place short description</p>
+        </div>
+        <div className='w-[300px] shadow-lg shadow-gray-800 my-5 mx-2 py-4 px-3 flex flex-col shrink-0 justify-center items-center'>
+            <img src="/hero-sec.png" alt="place image" className='w-[90%]'/>
+            <h3>Place Name</h3>
+            <p>Place short description</p>
+        </div>
+        <div className='w-[300px] shadow-lg shadow-gray-800 my-5 mx-2 py-4 px-3 flex flex-col shrink-0 justify-center items-center'>
+            <img src="/hero-sec.png" alt="place image" className='w-[90%]'/>
+            <h3>Place Name</h3>
+            <p>Place short description</p>
+        </div>
+        
     </div>
   )
 }

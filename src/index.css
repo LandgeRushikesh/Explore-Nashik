@@ -21,3 +21,9 @@
 .nav-content:hover:after{
     width: 100%;
 }
+.event-cards::-webkit-scrollbar{
+    display: none;
+}
+.attraction-cards::-webkit-scrollbar{
+    display: none;
+}

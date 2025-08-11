@@ -10,7 +10,7 @@ import SignUp from "./Pages/SignUp/SignUp";
 function App() {
   return (
     <>
-      <div className="h-screen">
+      <div className="min-h-screen">
         <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
