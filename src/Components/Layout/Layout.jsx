@@ -6,9 +6,15 @@ import Footer from '../Footer/Footer'
 function Layout() {
   return (
     <div className='flex flex-col min-h-screen'>
-        <Navbar />
-        <Outlet />
-        <Footer />
+        <nav>
+          <Navbar />
+        </nav>
+        <main>
+          <Outlet />
+        </main>
+        <footer>
+          <Footer />
+        </footer>
     </div>
   )
 }
