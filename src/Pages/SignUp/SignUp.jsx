@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import {createUserWithEmailAndPassword} from 'firebase/auth'
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../Firebase-config";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
@@ -8,23 +8,30 @@ import { AuthContext } from "../../Context/AuthContext";
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
-  const {setIsAuth} = useContext(AuthContext)
+  const { setIsAuth } = useContext(AuthContext);
 
-  const navigate = useNavigate()
- 
-  const Registration = async(e) => {
+  const navigate = useNavigate();
+
+  const Registration = async (e) => {
     e.preventDefault();
-    try{
-      const user = await createUserWithEmailAndPassword(auth,email,password)
-      console.log(user);
-      setEmail("")
-      setPassword("")
-      navigate("/")
-      setIsAuth(true)
-    }
-    catch(err){
-      alert(err.message)
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await updateProfile(userCredential.user, {
+        displayName: name,
+      });
+      setEmail("");
+      setPassword("");
+      setName("");
+      navigate("/");
+      setIsAuth(true);
+    } catch (err) {
+      alert(err.message);
     }
   };
   return (
@@ -34,6 +41,14 @@ function SignUp() {
         onSubmit={(e) => Registration(e)}
       >
         <h2 className="text-3xl font-bold mb-4">Sign Up</h2>
+        <input
+          required
+          className="w-full px-4 py-2 mb-3 bg-slate-100"
+          type="text"
+          placeholder="Enter your name..."
+          value={name}
+          onChange={(e)=>setName(e.target.value)}
+        />
         <input
           required
           className="w-full px-4 py-2 mb-3 bg-slate-100 "
