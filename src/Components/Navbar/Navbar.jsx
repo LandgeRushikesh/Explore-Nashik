@@ -17,7 +17,7 @@ function Navbar() {
             <NavLink to="/">Home</NavLink>
           </li>
           <li className="nav-content inline-block relative">
-            <NavLink to="/Attraction">Attraction</NavLink>
+            <NavLink to="/Attraction">Attractions</NavLink>
           </li>
           <li className="nav-content inline-block relative">
             <NavLink to="/Events">Events</NavLink>

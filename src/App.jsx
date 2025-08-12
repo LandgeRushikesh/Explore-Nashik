@@ -11,6 +11,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Firebase-config";
 import User from "./Pages/User/User";
 import { LoadScript } from "@react-google-maps/api";
+import Details from "./Pages/Details/Details";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -32,6 +33,7 @@ function App() {
                   <Route path="Login" element={<Login />} />
                   <Route path="Signup" element={<SignUp />} />
                   <Route path="UserPage" element={<User />} />
+                  <Route path="Details" element={<Details />} />
                 </Route>
               </Routes>
             </BrowserRouter>

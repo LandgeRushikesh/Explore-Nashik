@@ -19,7 +19,7 @@ function MapView() {
 
         Google Maps API detects that the script is already loaded and refuses to reload, leaving the map stuck in the "loading" state.
       */
-    <div className="z-0 w-[90vw] h-[80vh] m-auto">
+    <div className="z-0 w-[90vw] h-[100vh] m-auto">
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -28,7 +28,6 @@ function MapView() {
           fullscreenControl: false,
           streetViewControl: false,
           mapTypeControl: false,
-          scrollwheel: false,
         }}
       ></GoogleMap>
     </div>

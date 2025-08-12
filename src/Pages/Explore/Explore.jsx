@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CardView from "../../Components/ExploreComponents/CardView";
 import MapView from "../../Components/ExploreComponents/MapView";
+import Category from "../../Components/ExploreComponents/Category";
 
 function Explore() {
   const [view, setView] = useState("map");
@@ -19,6 +20,10 @@ function Explore() {
           </button>
         </div>
       </div>
+        {/* Category section */}
+        <div className="my-6">
+          <Category />
+        </div>
       {/* To resolve mounting and unmounting problem in map i am rapping this div with loadscript which will only load a script on first render */}
      <div className="my-8">{view === "card" ? <CardView /> : <MapView />}</div>
     </div>
