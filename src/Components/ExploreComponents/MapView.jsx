@@ -1,5 +1,5 @@
 import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../Context/DataContext";
 
 function MapView() {
@@ -13,7 +13,16 @@ function MapView() {
     lng: 73.7898,
   };
 
-  const { places } = useContext(DataContext);
+  const { places,filterdPlaces,setFilteredPlaces,category } = useContext(DataContext);
+
+  useEffect(() => {
+    if (category === "All") {
+      setFilteredPlaces(places);
+    } else {
+      setFilteredPlaces(places.filter((place) => place.category === category));
+    }
+  }, [category, places, setFilteredPlaces]);
+
   return (
     // to resolve loading problem of map i am rapping whole app with loadscript instead of GoogleMap
     /*
@@ -35,7 +44,7 @@ function MapView() {
           gestureHandling:"greedy"
         }}
       >
-        {places.map((place, index) => (
+        {filterdPlaces.map((place, index) => (
           <Marker
             key={index}
             position={{ lat: place.location.lat, lng: place.location.lon }}
@@ -52,12 +61,12 @@ function MapView() {
             onCloseClick={() => setSelectedPlace(null)}
           >
             <div
-              className="w-[350px] shadow-lg shadow-gray-800 my-5 mx-2 py-4 px-3 flex flex-col shrink-0 justify-center items-center cursor-pointer"
+              className=" mx-2 py-4 px-3 flex flex-col shrink-0 justify-center items-center cursor-pointer"
             >
               <img
                 src={selectedplace.imgURL}
                 alt="place image"
-                className="w-[100%] h-48 my-2 object-cover"
+                className="w-full h-48 my-2 object-fill"
               />
               <h3 className="text-lg text-gray-800 font-bold">{selectedplace.Name}</h3>
               <p className="text-sm text-gray-600">{selectedplace.shortDesc}</p>
