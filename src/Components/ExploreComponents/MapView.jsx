@@ -15,6 +15,16 @@ function MapView() {
 
   const { filterdPlaces } = useContext(DataContext);
 
+  const[isZoom,setIsZoom] = useState(false)
+
+  // Handling click
+  const HandleClick = ()=>{
+    setIsZoom(true)
+    setTimeout(()=>{
+      setIsZoom(false)
+    },3000)
+  }
+
 
   return (
     // to resolve loading problem of map i am rapping whole app with loadscript instead of GoogleMap
@@ -27,6 +37,7 @@ function MapView() {
       */
     <div className="z-0 w-[90vw] h-[100vh] m-auto">
       <GoogleMap
+        onDblClick={HandleClick}
         mapContainerStyle={containerStyle}
         center={center}
         zoom={12}
@@ -34,7 +45,8 @@ function MapView() {
           fullscreenControl: false,
           streetViewControl: false,
           mapTypeControl: false,
-          gestureHandling:"greedy"
+          gestureHandling:isZoom ? "greedy" :"none"
+
         }}
       >
         {filterdPlaces.map((place, index) => (
