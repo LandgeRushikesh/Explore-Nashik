@@ -2,15 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { DataContext } from "../../Context/DataContext";
 
 function CardView() {
-  const { places, filterdPlaces, setFilteredPlaces, category } = useContext(DataContext);
-
-  useEffect(() => {
-    if (category === "All") {
-      setFilteredPlaces(places);
-    } else {
-      setFilteredPlaces(places.filter((place) => place.category === category));
-    }
-  }, [category, places, setFilteredPlaces]);
+  const { filterdPlaces} = useContext(DataContext);
 
   return (
     <div className="attraction-cards w-full grid grid-cols-4">

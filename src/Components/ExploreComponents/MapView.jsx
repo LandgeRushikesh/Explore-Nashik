@@ -13,15 +13,8 @@ function MapView() {
     lng: 73.7898,
   };
 
-  const { places,filterdPlaces,setFilteredPlaces,category } = useContext(DataContext);
+  const { filterdPlaces } = useContext(DataContext);
 
-  useEffect(() => {
-    if (category === "All") {
-      setFilteredPlaces(places);
-    } else {
-      setFilteredPlaces(places.filter((place) => place.category === category));
-    }
-  }, [category, places, setFilteredPlaces]);
 
   return (
     // to resolve loading problem of map i am rapping whole app with loadscript instead of GoogleMap

@@ -1,8 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { DataContext } from "../../Context/DataContext";
 
 function Category() {
-  const { category, setCategory } = useContext(DataContext);
+  const {places, category, setCategory,setFilteredPlaces } = useContext(DataContext);
+
+    useEffect(() => {
+      if (category === "All") {
+        setFilteredPlaces(places);
+      } else {
+        setFilteredPlaces(places.filter((place) => place.category === category));
+      }
+    }, [category, places, setFilteredPlaces]);
 
   return (
     <div className="flex justify-around items-center font-serif font-semibold">
