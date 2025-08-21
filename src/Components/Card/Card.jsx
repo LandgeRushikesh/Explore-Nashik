@@ -12,6 +12,7 @@ function Card({ attraction }) {
   const { isAuth } = useContext(AuthContext);
 
   const HandleClick = (type) => {
+    
     if (type === "liked") {
       setIsLiked((prev) => !prev);
     } else if (type === "visited") {
@@ -41,7 +42,7 @@ function Card({ attraction }) {
             } transition-all duration-200`}
           >
             <button
-              className={`text-white rounded-full bg-transparent shadow-lg shadow-black p-2 mr-3 hover:scale-105 text-3xl transition-all duration-200 ${
+              className={`rounded-full bg-transparent shadow-lg shadow-black p-2 mr-3 hover:scale-105 text-3xl transition-all duration-200 ${
                 isLiked ? "text-rose-800" : "text-white"
               }`}
               onClick={() => HandleClick("liked")}
@@ -49,7 +50,7 @@ function Card({ attraction }) {
               <FontAwesomeIcon icon={faHeart} />
             </button>
             <button
-              className={`text-white rounded-full bg-transparent shadow-lg shadow-black p-2 hover:scale-105 text-3xl transition-all duration-200 ${
+              className={`rounded-full bg-transparent shadow-lg shadow-black p-2 hover:scale-105 text-3xl transition-all duration-200 ${
                 isVisited ? "text-green-900" : "text-white"
               }`}
               onClick={() => HandleClick("visited")}
