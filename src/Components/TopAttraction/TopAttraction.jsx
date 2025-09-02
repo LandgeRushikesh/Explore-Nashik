@@ -23,14 +23,10 @@ function TopAttraction() {
     fetchPlaces();
   }, []);
 
-  const navigate = useNavigate();
-  const SeeDetails = () => {
-    navigate("/Details");
-  };
   return (
     <div className="attraction-cards w-full flex justify-start items-center gap-4 overflow-x-auto px-6 font-serif">
       {attractions.map((attraction) => (
-        <Card attraction={attraction} />
+        <Card key={attraction.id} attraction={attraction} />
       ))}
     </div>
   );

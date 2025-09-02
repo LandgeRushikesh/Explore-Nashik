@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Card({ attraction }) {
   const [isHover, setIsHover] = useState();
@@ -20,12 +21,22 @@ function Card({ attraction }) {
     }
   };
 
+  const navigate = useNavigate()
+  const goToDetailsPage = ()=>{
+    try{
+      navigate("/Details")
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+
   return (
     <div
-      key={attraction.id}
       className="w-[350px] shadow-lg shadow-gray-800 my-5 mx-2 py-4 px-3 flex flex-col shrink-0 justify-center items-center cursor-pointer  hover:shadow-xl hover:shadow-gray-600 hover:scale-[1.02] transition-all duration-300"
       onMouseOver={() => setIsHover(true)}
       onMouseOut={() => setIsHover(false)}
+      onClick={goToDetailsPage}
     >
       <div className="w-full relative">
         <img

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 function Navbar() {
-  const { isAuth, setIsAuth } = useContext(AuthContext);
+  const { isAuth} = useContext(AuthContext);
   return (
     <div className="z-10 fixed top-3 inset-x-0 bg-white mx-auto w-[90%] flex justify-between items-center px-5 py-4 font-bold rounded-lg shadow-lg shadow-gray-600 font-serif">
       <div className="logo w-1/2 text-3xl">

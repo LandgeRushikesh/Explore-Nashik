@@ -21,7 +21,7 @@ function TopEvents() {
   return (
     <div className="event-cards w-full flex justify-start items-center gap-4 overflow-x-auto px-4">
       {events.map((event) => (
-        <Card attraction={event} />
+        <Card key={event.id} attraction={event} />
       ))}
     </div>
   );
