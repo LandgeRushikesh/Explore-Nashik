@@ -13,7 +13,6 @@ function Card({ attraction }) {
   const { isAuth } = useContext(AuthContext);
 
   const HandleClick = (type) => {
-    
     if (type === "liked") {
       setIsLiked((prev) => !prev);
     } else if (type === "visited") {
@@ -21,15 +20,14 @@ function Card({ attraction }) {
     }
   };
 
-  const navigate = useNavigate()
-  const goToDetailsPage = ()=>{
-    try{
-      navigate("/Details")
-    }
-    catch(err){
+  const navigate = useNavigate();
+  const goToDetailsPage = () => {
+    try {
+      navigate("/Details");
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   return (
     <div
@@ -43,7 +41,7 @@ function Card({ attraction }) {
           src={attraction.imgURL}
           alt="place image"
           className={`w-[100%] h-48 my-2 object-cover  ${
-            (isAuth && isHover) ? "opacity-40  blur-md" : "opacity-100"
+            isAuth && isHover ? "opacity-40  blur-md" : "opacity-100"
           }`}
         />
         {isAuth && (
@@ -56,7 +54,10 @@ function Card({ attraction }) {
               className={`rounded-full bg-transparent shadow-lg shadow-black p-2 mr-3 hover:scale-105 text-3xl transition-all duration-200 ${
                 isLiked ? "text-rose-800" : "text-white"
               }`}
-              onClick={() => HandleClick("liked")}
+              onClick={(e) => {
+                e.stopPropagation()
+                HandleClick("liked")
+              }}
             >
               <FontAwesomeIcon icon={faHeart} />
             </button>
@@ -64,7 +65,10 @@ function Card({ attraction }) {
               className={`rounded-full bg-transparent shadow-lg shadow-black p-2 hover:scale-105 text-3xl transition-all duration-200 ${
                 isVisited ? "text-green-900" : "text-white"
               }`}
-              onClick={() => HandleClick("visited")}
+              onClick={(e) => {
+                e.stopPropagation()
+                HandleClick("visited")
+              }}
             >
               <FontAwesomeIcon icon={faCheck} />
             </button>
