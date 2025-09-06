@@ -4,19 +4,53 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../Firebase-config";
 
 function Card({ attraction }) {
   const [isHover, setIsHover] = useState();
-  const [isLiked, setIsLiked] = useState();
+  const [isLiked, setIsLiked] = useState(false);
   const [isVisited, setIsVisited] = useState(false);
 
   const { isAuth } = useContext(AuthContext);
 
+  const addToFavorite = () =>{
+    console.log("Added to Favorites");
+    
+  }
+  const removeFromFavorite = () =>{
+    console.log("Removed from Favorites");
+    
+  }
+  const addToVisited = () =>{
+    console.log("Added to Visited");
+  }
+  const removeFromVisited = () =>{
+    console.log("Removed from Visited");
+  }
+
   const HandleClick = (type) => {
     if (type === "liked") {
-      setIsLiked((prev) => !prev);
+      setIsLiked((prev) =>{
+        const newState = !prev
+        if(newState){
+          addToFavorite()
+        }
+        else{
+          removeFromFavorite()
+        }
+        return newState
+      });
     } else if (type === "visited") {
-      setIsVisited((prev) => !prev);
+      setIsVisited((prev) => {
+        const newState = !prev
+        if(newState){
+          addToVisited()
+        }
+        else{
+          removeFromVisited()
+        }
+        return newState
+      });
     }
   };
 
