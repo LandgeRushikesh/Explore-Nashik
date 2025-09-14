@@ -4,52 +4,80 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../Firebase-config";
+import { auth, db } from "../../Firebase-config";
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 
-function Card({ attraction }) {
+function Card({ attraction, collectionName }) {
   const [isHover, setIsHover] = useState();
   const [isLiked, setIsLiked] = useState(false);
   const [isVisited, setIsVisited] = useState(false);
 
   const { isAuth } = useContext(AuthContext);
 
-  const addToFavorite = () =>{
-    console.log("Added to Favorites");
-    
-  }
-  const removeFromFavorite = () =>{
-    console.log("Removed from Favorites");
-    
-  }
-  const addToVisited = () =>{
-    console.log("Added to Visited");
-  }
-  const removeFromVisited = () =>{
-    console.log("Removed from Visited");
-  }
+  const user = auth.currentUser.uid;
 
-  const HandleClick = (type) => {
+  const addToFavorite = async (id) => {
+    try {
+      const ref = doc(db, collectionName, id);
+      await updateDoc(ref, {
+        liked: arrayUnion(user),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const removeFromFavorite = async (id) => {
+    try {
+      const ref = doc(db, collectionName, id);
+      await updateDoc(ref, {
+        liked: arrayRemove(user),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const addToVisited = async (id) => {
+    try {
+      const ref = doc(db, collectionName, id);
+      await updateDoc(ref, {
+        visited: arrayUnion(user),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const removeFromVisited = async (id) => {
+    try {
+      const ref = doc(db, collectionName, id);
+      await updateDoc(ref, {
+        visited: arrayRemove(user),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const HandleClick = (type, id) => {
     if (type === "liked") {
-      setIsLiked((prev) =>{
-        const newState = !prev
-        if(newState){
-          addToFavorite()
+      setIsLiked((prev) => {
+        const newState = !prev;
+        if (newState) {
+          addToFavorite(id);
+        } else {
+          removeFromFavorite(id);
         }
-        else{
-          removeFromFavorite()
-        }
-        return newState
+        return newState;
       });
     } else if (type === "visited") {
       setIsVisited((prev) => {
-        const newState = !prev
-        if(newState){
-          addToVisited()
+        const newState = !prev;
+        if (newState) {
+          addToVisited(id);
+        } else {
+          removeFromVisited(id);
         }
-        else{
-          removeFromVisited()
-        }
-        return newState
+        return newState;
       });
     }
   };
@@ -89,8 +117,8 @@ function Card({ attraction }) {
                 isLiked ? "text-rose-800" : "text-white"
               }`}
               onClick={(e) => {
-                e.stopPropagation()
-                HandleClick("liked")
+                e.stopPropagation();
+                HandleClick("liked", attraction.id);
               }}
             >
               <FontAwesomeIcon icon={faHeart} />
@@ -100,8 +128,8 @@ function Card({ attraction }) {
                 isVisited ? "text-green-900" : "text-white"
               }`}
               onClick={(e) => {
-                e.stopPropagation()
-                HandleClick("visited")
+                e.stopPropagation();
+                HandleClick("visited", attraction.id);
               }}
             >
               <FontAwesomeIcon icon={faCheck} />

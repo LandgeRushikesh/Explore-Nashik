@@ -1,13 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { auth } from "../../Firebase-config";
 import { AuthContext } from "../../Context/AuthContext";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut, faUser } from "@fortawesome/free-solid-svg-icons";
+import { DataContext } from "../../Context/DataContext";
+import Card from "../../Components/Card/Card";
 
 function User() {
+  const [liked, setLiked] = useState([]);
+  const [visited, setVisited] = useState([]);
+
   const { setIsAuth } = useContext(AuthContext);
+  const { places, AllEvents } = useContext(DataContext);
 
   const navigate = useNavigate();
 
@@ -21,7 +27,36 @@ function User() {
     }
   };
 
-  const user = auth.currentUser
+  const user = auth.currentUser;
+  const userid = user.uid;
+  console.log(user);
+
+  const findLiked = () => {
+    const likedPlaces = places?.filter((place) =>
+      place.liked?.includes(userid)
+    );
+    const likedVisited = AllEvents?.filter((event) =>
+      event.liked?.includes(userid)
+    );
+    setLiked(...likedPlaces, ...likedVisited);
+  };
+
+  const findVisited = () => {
+    const visitedPlaces = places?.filter((place) =>
+      place.visited?.includes(userid)
+    );
+    const visitedEvents = AllEvents?.filter((event) =>
+      event.visited?.includes(userid)
+    );
+    setVisited(...visitedPlaces, visitedPlaces);
+  };
+
+  useEffect(() => {
+    if ((places, AllEvents)) {
+      findLiked();
+      findVisited();
+    }
+  }, [places, AllEvents]);
 
   return (
     <div className="mt-28 mx-10 min-h-[70vh] font-serif">
@@ -29,22 +64,28 @@ function User() {
         <div className="w-full flex justify-between items-center">
           <div className="flex justify-center items-center">
             <div className="text-3xl border-2 border-black rounded-full p-2">
-              <FontAwesomeIcon icon={faUser}/>
+              <FontAwesomeIcon icon={faUser} />
             </div>
             <div className="ml-2">
-              <h2 className="text-2xl font-bold">
-                {user?.displayName}
-              </h2>
+              <h2 className="text-2xl font-bold">{user?.displayName}</h2>
               <h4 className="text-sm text-gray-600">{user?.email}</h4>
             </div>
           </div>
-          <button onClick={HandleSignOut} className="text-2xl bg-red-700 font-bold text-white px-4 py-2 rounded-lg">
+          <button
+            onClick={HandleSignOut}
+            className="text-2xl bg-red-700 font-bold text-white px-4 py-2 rounded-lg"
+          >
             <FontAwesomeIcon icon={faSignOut} />
           </button>
         </div>
         <div className="Wishlist mt-4">
           <h2 className="text-2xl font-bold">WishList ❤️</h2>
-          <div></div>
+          <div>
+            {liked > 0 &&
+              liked.map((place) => (
+                <Card attraction={place} collectionName={"Places"} />
+              ))}
+          </div>
         </div>
         <div className="Places-already-visited mt-4">
           <h2 className="text-2xl font-bold">Visited ✅</h2>

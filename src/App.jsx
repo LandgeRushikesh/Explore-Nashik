@@ -12,15 +12,21 @@ import { auth, db } from "./Firebase-config";
 import User from "./Pages/User/User";
 import { LoadScript } from "@react-google-maps/api";
 import Details from "./Pages/Details/Details";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { DataContext } from "./Context/DataContext";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [places, setPlaces] = useState([]);
   const [AllEvents, setAllEvents] = useState([]);
-  const [filterdPlaces,setFilteredPlaces] = useState([])
-  const [category,setCategory] = useState("All")
+  const [filterdPlaces, setFilteredPlaces] = useState([]);
+  const [category, setCategory] = useState("All");
 
   const EventscollectionRef = collection(db, "All Events");
   const PlacescollectionRef = collection(db, "All Places");
@@ -45,7 +51,7 @@ function App() {
 
   useEffect(() => {
     fetchEvents();
-    fetchPlaces()
+    fetchPlaces();
   }, []);
 
   onAuthStateChanged(auth, (currUser) => {
@@ -56,7 +62,16 @@ function App() {
     <>
       <div className="min-h-screen">
         <LoadScript googleMapsApiKey={import.meta.env.VITE_MAP_KEY}>
-          <DataContext.Provider value={{ AllEvents,places,filterdPlaces,setFilteredPlaces,category,setCategory }}>
+          <DataContext.Provider
+            value={{
+              AllEvents,
+              places,
+              filterdPlaces,
+              setFilteredPlaces,
+              category,
+              setCategory,
+            }}
+          >
             <AuthContext.Provider value={{ isAuth, setIsAuth, places }}>
               <BrowserRouter>
                 <Routes>
