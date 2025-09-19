@@ -1,5 +1,5 @@
 import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { DataContext } from "../../Context/DataContext";
 
 function MapView() {

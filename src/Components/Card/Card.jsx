@@ -4,7 +4,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { auth, db } from "../../Firebase-config";
+import { db } from "../../Firebase-config";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 
 function Card({ attraction, collectionName }) {

@@ -12,14 +12,7 @@ import { auth, db } from "./Firebase-config";
 import User from "./Pages/User/User";
 import { LoadScript } from "@react-google-maps/api";
 import Details from "./Pages/Details/Details";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  onSnapshot,
-  updateDoc,
-} from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { DataContext } from "./Context/DataContext";
 
 function App() {

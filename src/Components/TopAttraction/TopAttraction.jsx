@@ -1,7 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
-import { db } from "../../Firebase-config";
 import Card from "../Card/Card";
 import { DataContext } from "../../Context/DataContext";
 

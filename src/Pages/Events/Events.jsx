@@ -1,5 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { DataContext } from "../../Context/DataContext";
 import Card from "../../Components/Card/Card";
 
