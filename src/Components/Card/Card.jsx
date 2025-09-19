@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -12,16 +12,15 @@ function Card({ attraction, collectionName }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isVisited, setIsVisited] = useState(false);
 
-  const { isAuth } = useContext(AuthContext);
-
-  const user = auth.currentUser.uid;
+  const { isAuth, user } = useContext(AuthContext);
 
   const addToFavorite = async (id) => {
     try {
       const ref = doc(db, collectionName, id);
       await updateDoc(ref, {
-        liked: arrayUnion(user),
+        liked: arrayUnion(user.uid),
       });
+      console.log("Added to Favorite");
     } catch (err) {
       console.log(err);
     }
@@ -31,8 +30,9 @@ function Card({ attraction, collectionName }) {
     try {
       const ref = doc(db, collectionName, id);
       await updateDoc(ref, {
-        liked: arrayRemove(user),
+        liked: arrayRemove(user.uid),
       });
+      console.log("removed from Favorite");
     } catch (err) {
       console.log(err);
     }
@@ -41,7 +41,7 @@ function Card({ attraction, collectionName }) {
     try {
       const ref = doc(db, collectionName, id);
       await updateDoc(ref, {
-        visited: arrayUnion(user),
+        visited: arrayUnion(user.uid),
       });
     } catch (err) {
       console.log(err);
@@ -51,7 +51,7 @@ function Card({ attraction, collectionName }) {
     try {
       const ref = doc(db, collectionName, id);
       await updateDoc(ref, {
-        visited: arrayRemove(user),
+        visited: arrayRemove(user.uid),
       });
     } catch (err) {
       console.log(err);

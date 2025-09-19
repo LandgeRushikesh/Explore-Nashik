@@ -2,28 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.nav-content::after{
-    position: absolute;
-    display: block;
-    content: '';
-    width: 0;
-    left: 0;
-    bottom: 0;
-    height: 3px;
-    background-color: red;
-    transition: 0.5s;
+.nav-content::after {
+  position: absolute;
+  display: block;
+  content: "";
+  width: 0;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  background-color: red;
+  transition: 0.5s;
 }
-.nav-content:hover:after{
-    width: 100%;
+.nav-content:hover:after {
+  width: 100%;
 }
-.event-cards::-webkit-scrollbar{
-    display: none;
+.event-cards::-webkit-scrollbar {
+  display: none;
 }
-.attraction-cards::-webkit-scrollbar{
-    display: none;
+.attraction-cards::-webkit-scrollbar {
+  display: none;
+}
+.favorites::-webkit-scrollbar {
+  display: none;
+}
+.Places-already-visited::-webkit-scrollbar {
+  display: none;
 }

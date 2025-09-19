@@ -15,9 +15,6 @@ function MapView() {
 
   const { filterdPlaces } = useContext(DataContext);
 
-  const[isZoom,setIsZoom] = useState(false)
-
-
   return (
     // to resolve loading problem of map i am rapping whole app with loadscript instead of GoogleMap
     /*
@@ -37,7 +34,7 @@ function MapView() {
           fullscreenControl: false,
           streetViewControl: false,
           mapTypeControl: false,
-          gestureHandling:"greedy" 
+          gestureHandling: "greedy",
         }}
       >
         {filterdPlaces.map((place, index) => (
@@ -56,15 +53,15 @@ function MapView() {
             }}
             onCloseClick={() => setSelectedPlace(null)}
           >
-            <div
-              className=" mx-2 py-4 px-3 flex flex-col shrink-0 justify-center items-center cursor-pointer"
-            >
+            <div className=" mx-2 py-4 px-3 flex flex-col shrink-0 justify-center items-center cursor-pointer">
               <img
                 src={selectedplace.imgURL}
                 alt="place image"
                 className="w-full h-48 my-2 object-fill"
               />
-              <h3 className="text-lg text-gray-800 font-bold">{selectedplace.Name}</h3>
+              <h3 className="text-lg text-gray-800 font-bold">
+                {selectedplace.Name}
+              </h3>
               <p className="text-sm text-gray-600">{selectedplace.shortDesc}</p>
             </div>
           </InfoWindow>

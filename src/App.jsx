@@ -17,6 +17,7 @@ import {
   collection,
   doc,
   getDocs,
+  onSnapshot,
   updateDoc,
 } from "firebase/firestore";
 import { DataContext } from "./Context/DataContext";
@@ -27,36 +28,40 @@ function App() {
   const [AllEvents, setAllEvents] = useState([]);
   const [filterdPlaces, setFilteredPlaces] = useState([]);
   const [category, setCategory] = useState("All");
+  const [user, setUser] = useState();
+  const [loading, setLoading] = useState(true);
 
   const EventscollectionRef = collection(db, "All Events");
   const PlacescollectionRef = collection(db, "All Places");
 
   // Fetch Events
 
-  const fetchEvents = async () => {
-    try {
-      const res = await getDocs(EventscollectionRef);
-      setAllEvents(res.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-    } catch (err) {
-      alert(err.message);
-    }
-  };
-
-  // Fetch Places
-
-  const fetchPlaces = async () => {
-    const res = await getDocs(PlacescollectionRef);
-    setPlaces(res.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-  };
-
   useEffect(() => {
-    fetchEvents();
-    fetchPlaces();
+    const unsubscribePlaces = onSnapshot(PlacescollectionRef, (snapShot) => {
+      setPlaces(snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    });
+
+    const unsubscribeEvents = onSnapshot(EventscollectionRef, (snapShot) => {
+      setAllEvents(snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    });
+
+    return () => {
+      unsubscribeEvents();
+      unsubscribePlaces();
+    };
   }, []);
 
-  onAuthStateChanged(auth, (currUser) => {
-    setIsAuth(!!currUser);
-  });
+  useEffect(() => {
+    onAuthStateChanged(auth, (currUser) => {
+      setUser(currUser);
+      setIsAuth(!!currUser);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) {
+    return <h3>Loading...</h3>;
+  }
 
   return (
     <>
@@ -72,7 +77,7 @@ function App() {
               setCategory,
             }}
           >
-            <AuthContext.Provider value={{ isAuth, setIsAuth, places }}>
+            <AuthContext.Provider value={{ isAuth, setIsAuth, user, places }}>
               <BrowserRouter>
                 <Routes>
                   <Route path="/" element={<Layout />}>

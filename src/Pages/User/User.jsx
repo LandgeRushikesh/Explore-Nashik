@@ -11,8 +11,9 @@ import Card from "../../Components/Card/Card";
 function User() {
   const [liked, setLiked] = useState([]);
   const [visited, setVisited] = useState([]);
+  const [userId, setUserId] = useState();
 
-  const { setIsAuth } = useContext(AuthContext);
+  const { setIsAuth, user } = useContext(AuthContext);
   const { places, AllEvents } = useContext(DataContext);
 
   const navigate = useNavigate();
@@ -27,39 +28,39 @@ function User() {
     }
   };
 
-  const user = auth.currentUser;
-  const userid = user.uid;
-  console.log(user);
+  useEffect(() => {
+    setUserId(user?.uid);
+  }, [user]);
 
   const findLiked = () => {
-    const likedPlaces = places?.filter((place) =>
-      place.liked?.includes(userid)
-    );
-    const likedVisited = AllEvents?.filter((event) =>
-      event.liked?.includes(userid)
-    );
-    setLiked(...likedPlaces, ...likedVisited);
+    if (!user?.uid) {
+      return;
+    }
+    const likedPlaces =
+      places?.filter((place) => place.liked?.includes(userId)) || [];
+    const likedVisited =
+      AllEvents?.filter((event) => event.liked?.includes(userId)) || [];
+    setLiked([...likedPlaces, ...likedVisited]);
   };
 
   const findVisited = () => {
-    const visitedPlaces = places?.filter((place) =>
-      place.visited?.includes(userid)
-    );
-    const visitedEvents = AllEvents?.filter((event) =>
-      event.visited?.includes(userid)
-    );
-    setVisited(...visitedPlaces, visitedPlaces);
+    if (!user?.uid) {
+      return;
+    }
+    const visitedPlaces =
+      places?.filter((place) => place.visited?.includes(userId)) || [];
+    const visitedEvents =
+      AllEvents?.filter((event) => event.visited?.includes(userId)) || [];
+    setVisited([...visitedPlaces, ...visitedEvents]);
   };
 
   useEffect(() => {
-    if ((places, AllEvents)) {
-      findLiked();
-      findVisited();
-    }
-  }, [places, AllEvents]);
+    findLiked();
+    findVisited();
+  }, [places, AllEvents, userId]);
 
   return (
-    <div className="mt-28 mx-10 min-h-[70vh] font-serif">
+    <div className="my-28 mx-10 min-h-[70vh] font-serif">
       <div className="w-[90vw] mx-auto flex flex-col justify-between items-start shadow-lg shadow-gray-800 px-4 py-5 rounded-lg">
         <div className="w-full flex justify-between items-center">
           <div className="flex justify-center items-center">
@@ -78,18 +79,31 @@ function User() {
             <FontAwesomeIcon icon={faSignOut} />
           </button>
         </div>
-        <div className="Wishlist mt-4">
+        <div className="Wishlist mt-4 w-full">
           <h2 className="text-2xl font-bold">WishList ❤️</h2>
-          <div>
-            {liked > 0 &&
+          <div className="favorites w-full flex justify-start items-center gap-2 overflow-x-scroll">
+            {liked &&
               liked.map((place) => (
-                <Card attraction={place} collectionName={"Places"} />
+                <Card
+                  key={place.id}
+                  attraction={place}
+                  collectionName={"Places"}
+                />
               ))}
           </div>
         </div>
-        <div className="Places-already-visited mt-4">
+        <div className="mt-4 w-full">
           <h2 className="text-2xl font-bold">Visited ✅</h2>
-          <div></div>
+          <div className="Places-already-visited w-full flex justify-start items-center gap-2 overflow-x-scroll">
+            {visited &&
+              visited.map((place) => (
+                <Card
+                  key={place.id}
+                  attraction={place}
+                  collectionName={"Places"}
+                />
+              ))}
+          </div>
         </div>
       </div>
     </div>
