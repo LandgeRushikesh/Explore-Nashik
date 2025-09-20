@@ -17,7 +17,7 @@ function TopAttraction() {
         <Card
           key={attraction.id}
           attraction={attraction}
-          collectionName={"Top Attraction"}
+          collectionName={"All Places"}
         />
       ))}
     </div>

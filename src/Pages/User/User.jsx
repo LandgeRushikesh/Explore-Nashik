@@ -37,9 +37,13 @@ function User() {
       return;
     }
     const likedPlaces =
-      places?.filter((place) => place.liked?.includes(userId)) || [];
+      places
+        ?.filter((place) => place.liked?.includes(userId))
+        .map((place) => ({ ...place, collectionName: "All Places" })) || [];
     const likedVisited =
-      AllEvents?.filter((event) => event.liked?.includes(userId)) || [];
+      AllEvents?.filter((event) => event.liked?.includes(userId)).map(
+        (event) => ({ ...event, collectionName: "All Events" })
+      ) || [];
     setLiked([...likedPlaces, ...likedVisited]);
   };
 
@@ -48,9 +52,13 @@ function User() {
       return;
     }
     const visitedPlaces =
-      places?.filter((place) => place.visited?.includes(userId)) || [];
+      places
+        ?.filter((place) => place.visited?.includes(userId))
+        .map((place) => ({ ...place, collectionName: "All Places" })) || [];
     const visitedEvents =
-      AllEvents?.filter((event) => event.visited?.includes(userId)) || [];
+      AllEvents?.filter((event) => event.visited?.includes(userId)).map(
+        (event) => ({ ...event, collectionName: "All Events" })
+      ) || [];
     setVisited([...visitedPlaces, ...visitedEvents]);
   };
 
@@ -87,7 +95,7 @@ function User() {
                 <Card
                   key={place.id}
                   attraction={place}
-                  collectionName={"Places"}
+                  collectionName={place.collectionName}
                 />
               ))}
           </div>
@@ -100,7 +108,7 @@ function User() {
                 <Card
                   key={place.id}
                   attraction={place}
-                  collectionName={"Places"}
+                  collectionName={place.collectionName}
                 />
               ))}
           </div>

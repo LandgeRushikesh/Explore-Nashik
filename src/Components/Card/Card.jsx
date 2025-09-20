@@ -9,10 +9,11 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 
 function Card({ attraction, collectionName }) {
   const [isHover, setIsHover] = useState();
-  const [isLiked, setIsLiked] = useState(false);
-  const [isVisited, setIsVisited] = useState(false);
 
   const { isAuth, user } = useContext(AuthContext);
+
+  const isLiked = attraction?.liked?.includes(user?.uid);
+  const isVisited = attraction?.visited?.includes(user?.uid);
 
   const addToFavorite = async (id) => {
     try {
@@ -60,25 +61,9 @@ function Card({ attraction, collectionName }) {
 
   const HandleClick = (type, id) => {
     if (type === "liked") {
-      setIsLiked((prev) => {
-        const newState = !prev;
-        if (newState) {
-          addToFavorite(id);
-        } else {
-          removeFromFavorite(id);
-        }
-        return newState;
-      });
+      isLiked ? removeFromFavorite(id) : addToFavorite(id);
     } else if (type === "visited") {
-      setIsVisited((prev) => {
-        const newState = !prev;
-        if (newState) {
-          addToVisited(id);
-        } else {
-          removeFromVisited(id);
-        }
-        return newState;
-      });
+      isVisited ? removeFromVisited(id) : addToVisited(id);
     }
   };
 
