@@ -70,7 +70,7 @@ function Card({ attraction, collectionName }) {
   const navigate = useNavigate();
   const goToDetailsPage = () => {
     try {
-      navigate("/Details");
+      navigate("/Details", { state: { attraction } });
     } catch (err) {
       console.log(err);
     }
