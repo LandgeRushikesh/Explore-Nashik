@@ -20,7 +20,7 @@ function MapView() {
     /*
         LoadScript is not meant to be re-mounted multiple times.
 
-        Every time you switch back to MapView, your component is trying to run LoadScript again.
+        Every time we switch back to MapView, our component is trying to run LoadScript again.
 
         Google Maps API detects that the script is already loaded and refuses to reload, leaving the map stuck in the "loading" state.
       */
