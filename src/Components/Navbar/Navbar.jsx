@@ -13,7 +13,7 @@ function Navbar() {
         <NavLink to="/">Nashik</NavLink>
       </div>
       {/* Deskstop menu */}
-      <div className="w-1/3 text-lg font-semibold hidden lg:flex">
+      <div className="w-[40%] text-lg font-semibold hidden lg:flex">
         <ul className="w-full flex justify-around items-center">
           <li className="nav-content inline-block relative">
             <NavLink to="/">Home</NavLink>
@@ -47,8 +47,10 @@ function Navbar() {
 
       {/* Mobile menu  */}
       <div
-        className={`lg:hidden w-full text-lg font-semibold min-md:hidden absolute top-16 left-0 bg-white bg-opacity-45 transition-all duration-300 ease-in-out ${
-          isOpen ? "max-h-80  opacity-100" : "max-h-0 opacity-0"
+        className={`lg:hidden w-full text-lg font-semibold min-md:hidden absolute top-16 left-0 bg-white bg-opacity-50 transition-all duration-300 ease-in-out overflow-hidden ${
+          isOpen
+            ? "max-h-80  opacity-100 pointer-events-auto"
+            : "max-h-0 opacity-0 pointer-events-none"
         }`}
       >
         <ul className="w-full flex flex-col gap-6 py-10 justify-around items-center">

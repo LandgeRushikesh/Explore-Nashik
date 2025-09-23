@@ -6,7 +6,7 @@ function CardView() {
   const { filterdPlaces } = useContext(DataContext);
 
   return (
-    <div className="attraction-cards w-full grid grid-cols-4">
+    <div className="attraction-cards w-full grid xl3:grid-cols-4 xl2:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-items-center">
       {filterdPlaces.map((place) => (
         <Card attraction={place} collectionName={"All Places"} />
       ))}
