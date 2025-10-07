@@ -37,7 +37,7 @@ function SignUp() {
   return (
     <div className="min-h-[70vh] mt-24 mb-5 w-full flex justify-center items-center">
       <form
-        className="w-1/3 flex flex-col justify-center items-center shadow-lg shadow-gray-700 py-10 px-8"
+        className="w-[90%] md:w-[70%] lg:w-1/3  flex flex-col justify-center items-center shadow-lg shadow-gray-700 py-10 px-8"
         onSubmit={(e) => Registration(e)}
       >
         <h2 className="text-3xl font-bold mb-4">Sign Up</h2>
@@ -47,7 +47,7 @@ function SignUp() {
           type="text"
           placeholder="Enter your name..."
           value={name}
-          onChange={(e)=>setName(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
         />
         <input
           required

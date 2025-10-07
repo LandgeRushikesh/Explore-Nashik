@@ -12,7 +12,7 @@ function TopAttraction() {
   }, [places]);
 
   return (
-    <div className="attraction-cards w-full flex justify-start items-center gap-4 overflow-x-auto px-6 font-serif">
+    <div className="attraction-cards w-full flex justify-start items-center gap-4 overflow-x-auto font-serif">
       {attractions.map((attraction) => (
         <Card
           key={attraction.id}

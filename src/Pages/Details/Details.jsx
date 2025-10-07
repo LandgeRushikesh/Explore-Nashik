@@ -11,13 +11,13 @@ function Details() {
   }
 
   return (
-    <div className="my-28 mx-auto w-[90vw] h-screen font-serif">
+    <div className="my-28 mx-auto w-[90vw] h-full font-serif">
       <div className="heading w-full text-center my-4">
         <h2 className="font-bold text-4xl ">{attraction.Name}</h2>
       </div>
       <div className="img w-full h-[80%] bg-[url('./details-bg-img.png')] bg-no-repeat bg-center bg-cover flex justify-center items-center relative">
         <img
-          className="z-10 w-[40%] h-[70%]"
+          className="z-10 w-full h-full lg:w-[40%] lg:h-[70%]"
           src={attraction.imgURL}
           alt="..."
         />

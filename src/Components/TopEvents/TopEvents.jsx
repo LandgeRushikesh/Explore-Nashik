@@ -12,7 +12,7 @@ function TopEvents() {
   }, [AllEvents]);
 
   return (
-    <div className="event-cards w-full flex justify-start items-center gap-4 overflow-x-auto px-4">
+    <div className="event-cards w-full flex justify-start items-center gap-4 overflow-x-auto">
       {events.map((event) => (
         <Card key={event.id} attraction={event} collectionName={"All Events"} />
       ))}

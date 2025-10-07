@@ -12,6 +12,7 @@ function User() {
   const [liked, setLiked] = useState([]);
   const [visited, setVisited] = useState([]);
   const [userId, setUserId] = useState();
+  const [clicked, setClicked] = useState(false);
 
   const { setIsAuth, user } = useContext(AuthContext);
   const { places, AllEvents } = useContext(DataContext);
@@ -68,21 +69,32 @@ function User() {
   }, [places, AllEvents, userId]);
 
   return (
-    <div className="my-28 mx-10 min-h-[70vh] font-serif">
+    <div className="my-28 md:mx-10 min-h-[70vh] font-serif">
       <div className="w-[90vw] mx-auto flex flex-col justify-between items-start shadow-lg shadow-gray-800 px-4 py-5 rounded-lg">
         <div className="w-full flex justify-between items-center">
-          <div className="flex justify-center items-center">
+          <div
+            className="flex justify-center items-center"
+            onClick={() => setClicked((prev) => !prev)}
+          >
             <div className="text-3xl border-2 border-black rounded-full p-2">
               <FontAwesomeIcon icon={faUser} />
             </div>
             <div className="ml-2">
               <h2 className="text-2xl font-bold">{user?.displayName}</h2>
               <h4 className="text-sm text-gray-600">{user?.email}</h4>
+              <button
+                className={`${
+                  clicked ? "opacity-100" : "opacity-0"
+                } bg-white px-2 py-1 text-lg shadow-md shadow-slate-700 rounded-lg font-semibold md:hidden`}
+                onClick={HandleSignOut}
+              >
+                Log Out
+              </button>
             </div>
           </div>
           <button
             onClick={HandleSignOut}
-            className="text-2xl bg-red-700 font-bold text-white px-4 py-2 rounded-lg"
+            className="hidden md:block text-2xl bg-red-700 font-bold text-white px-4 py-2 rounded-lg"
           >
             <FontAwesomeIcon icon={faSignOut} />
           </button>
