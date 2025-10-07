@@ -24,9 +24,8 @@ function MapView() {
 
         Google Maps API detects that the script is already loaded and refuses to reload, leaving the map stuck in the "loading" state.
       */
-    <div className="z-0 w-full md:w-[90vh] h-[100vh] md:m-auto">
+    <div className="z-0 w-full md:w-[90vw] h-[100vh] md:m-auto">
       <GoogleMap
-        // onDblClick={HandleClick}
         mapContainerStyle={containerStyle}
         center={center}
         zoom={12}
