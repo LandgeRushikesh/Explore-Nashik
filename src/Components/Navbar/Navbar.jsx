@@ -82,7 +82,10 @@ function Navbar() {
               </NavLink>
             </li>
           ) : (
-            <li className="bg-red-700 px-3 py-1 text-white rounded-lg">
+            <li
+              onClick={() => setIsOpen(false)}
+              className="bg-red-700 px-3 py-1 text-white rounded-lg"
+            >
               <NavLink to="/Login">Log In</NavLink>
             </li>
           )}
